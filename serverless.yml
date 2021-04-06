@@ -1,0 +1,29 @@
+service: lambdaLayer
+
+custom:
+  config: ${file(configurations/${env:STAGE}.json)}
+  stages:
+    - ${env.STAGE}
+  
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${self:custom.config.stage}
+  region: ${self:custom.config.region}
+
+layers:
+  myFirstCapa:
+    path: layer_content
+    name: myFirstCapa
+    description: Testing Layer to reduce package size in ImageUploaderService
+    compatibleRuntimes:
+      - nodejs12.x
+      - nodejs14.x
+
+Outputs:
+  MyFirstCapaLayerExport:
+    Value:
+      Ref: MyFirstCapaLambdaLayer
+    Export:
+      Name: MyFirstCapaLambdaLayer

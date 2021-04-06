@@ -1,0 +1,3 @@
+.serverless
+*-lock.json
+layer_content/nodejs/node_modules/
